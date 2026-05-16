@@ -1,12 +1,9 @@
 package com.pavan.metro_ticket_booking.dto;
 
-import com.pavan.metro_ticket_booking.enums.Role;
 import lombok.Data;
 
 @Data
-public class RegisterRequest {
-    private String name;
+public class LoginRequest {
     private String email;
     private String password;
-    private Role role;
 }

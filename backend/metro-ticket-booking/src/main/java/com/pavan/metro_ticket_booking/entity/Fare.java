@@ -1,5 +1,6 @@
 package com.pavan.metro_ticket_booking.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +12,6 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-@Builder
 public class Fare {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +21,11 @@ public class Fare {
 
     @ManyToOne
     @JoinColumn(name = "source_station_id")
+    @JsonIgnore
     private Station sourceStation;
 
     @ManyToOne
     @JoinColumn(name = "destination_station_id")
+    @JsonIgnore
     private Station destinationStation;
 }

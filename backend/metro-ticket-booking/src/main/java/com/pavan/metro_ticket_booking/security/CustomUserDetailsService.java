@@ -1,4 +1,27 @@
 package com.pavan.metro_ticket_booking.security;
 
-public class CustomUserDetailsService {
+import com.pavan.metro_ticket_booking.entity.User;
+import com.pavan.metro_ticket_booking.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class CustomUserDetailsService implements UserDetailsService {
+
+    private final UserRepository userRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        return AuthUser.builder()
+                .user(user)
+                .build();
+    }
 }
